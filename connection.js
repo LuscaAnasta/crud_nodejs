@@ -1,9 +1,7 @@
 const mysql = require('mysql2');
 const credentials = require('./credentials')
 
-console.log(credentials.secrets.host)
-
-const connection = mysql.createConnection({
+const con = mysql.createConnection({
         host: credentials.secrets.host,     // host for connection
         port: credentials.secrets.port,            // default port for mysql is 3306
         database: credentials.secrets.database,      // database from which we want to connect our node application
@@ -11,8 +9,7 @@ const connection = mysql.createConnection({
         password: credentials.secrets.password 
     })
 
-
-connection.connect(function(err) {
+con.connect(function(err) {
     if (err) {
         console.log("error occurred while connecting:\n"+err);
     } else {
@@ -20,20 +17,6 @@ connection.connect(function(err) {
     }
 });
 
-function insertUsuario(data){
-    con.connect(function(err) {
-        if (err) throw err;
-        console.log("Connected!");
-        let sql = `INSERT INTO usuariosdolulu (nome, senha) VALUES ('${data.nome}', '${data.senha}')`;
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("1 record inserted");
-        });
-    });
-}
-
-
-
 module.exports = {
-    insertUsuario
+   con
 }

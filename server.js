@@ -3,13 +3,21 @@ const mysql = require('mysql2');
 const connection = require('./connection')
 
 const app = express();
-const port = 8080;
+const port = 3030;
 
 
 // Respond to GET request on the root route
 app.get('/', (req, res) => {
   res.send('GET request to the homepage');
 });
+
+
+app.get('/login', (req, res) => {
+  const data = req.query
+  connection.login(data)
+  res.send('login');
+});
+
 
 // Respond to POST request on the root route
 app.post('/', (req, res) => {
